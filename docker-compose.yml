@@ -1,0 +1,13 @@
+version: "2.29"
+name: "Weather API"
+services:
+  flask-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: weather_api_container
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped

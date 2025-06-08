@@ -1,0 +1,23 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: pwd
+      run: docker build "Part A" --file "Part A/Dockerfile" --tag weather-api-image:$(date +%s)
+
+  publish:
+    runs-on: ubuntu-latest
+    
