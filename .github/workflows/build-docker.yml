@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Docker Image CI/CD
 
 on:
   push:
@@ -15,5 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build "." --file "Dockerfile" --tag weather-api-image:$(date +%s)
+      run: |
+            docker build "." --file "Dockerfile" --tag ${{secrets.DOCKERHUB_USERNAME}}/weather-api-image:{{ github.run_id }}
+            docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
+            docker push ${{secrets.DOCKERHUB_USERNAME}}/weather-api-image:{{ github.run_id }}
+            
 
