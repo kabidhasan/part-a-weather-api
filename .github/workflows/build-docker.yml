@@ -15,5 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: pwd
       run: docker build "part-a-weather-api" --file "part-a-weather-api/Dockerfile" --tag weather-api-image:$(date +%s)
