@@ -16,8 +16,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: pwd
-      run: docker build "Part A" --file "Part A/Dockerfile" --tag weather-api-image:$(date +%s)
+      run: docker build "part-a-weather-api" --file "part-a-weather-api/Dockerfile" --tag weather-api-image:$(date +%s)
 
   publish:
     runs-on: ubuntu-latest
-    
