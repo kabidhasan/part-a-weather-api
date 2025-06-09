@@ -20,4 +20,23 @@ jobs:
             docker login -u ${{secrets.DOCKERHUB_USERNAME}} -p ${{secrets.DOCKERHUB_PASSWORD}}
             docker push ${{secrets.DOCKERHUB_USERNAME}}/weather-api-image:${{ github.run_id }}
             
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
+    - name: Configure kubectl
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
+
+    - name: Replace image name in deployment.yaml
+      run: |
+        sed "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/weather-api-image:${{ github.run_id }}|" k8s/deployment.yaml.tpl > k8s/deployment.yaml
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/secret.yaml || true  # ignore if already exists
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
