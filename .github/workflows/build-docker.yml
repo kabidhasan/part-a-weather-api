@@ -33,7 +33,7 @@ jobs:
 
     - name: Replace image name in deployment.yml
       run: |
-        sed "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/weather-api-image:${{ github.run_id }}|" k8s/deployment.yml.tpl > k8s/deployment.yml
+        sed "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/weather-api-image:${{ github.run_id }}|" infrastructure/k8s/deployment.yml.tpl > infrastructure/k8s/deployment.yml
 
     - name: Deploy to Kubernetes
       run: |
