@@ -31,12 +31,12 @@ jobs:
       run: |
         aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region ${{ secrets.AWS_REGION }}
 
-    - name: Replace image name in deployment.yaml
+    - name: Replace image name in deployment.yml
       run: |
-        sed "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/weather-api-image:${{ github.run_id }}|" k8s/deployment.yaml.tpl > k8s/deployment.yaml
+        sed "s|DOCKER_IMAGE_PLACEHOLDER|${{ secrets.DOCKERHUB_USERNAME }}/weather-api-image:${{ github.run_id }}|" k8s/deployment.yml.tpl > k8s/deployment.yml
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f k8s/secret.yaml || true  # ignore if already exists
-        kubectl apply -f k8s/deployment.yaml
-        kubectl apply -f k8s/service.yaml
+        kubectl apply -f k8s/secret.yml || true  # ignore if already exists
+        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f k8s/service.yml
