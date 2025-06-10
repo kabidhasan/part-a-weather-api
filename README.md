@@ -30,10 +30,10 @@ To enable GitHub Actions to interact with AWS and Docker Hub, configure the foll
 
 To run the infrastructure locally, follow these steps:
 
-### 1. Clone the repository
+### 1. Clone your repository
 
 ```bash
-git clone https://github.com/kabidhasan/part-a-weather-api.git
+git clone https://github.com/<your-username>/part-a-weather-api.git
 cd part-a-weather-api
 ````
 
@@ -52,9 +52,10 @@ You'll be prompted to enter:
 * Default region name (e.g., `us-east-1`)
 * Default output format (optional: `json`, `table`, or `text`)
 
-### 3. Initialize Terraform
+### 3. Initialize Terraform in Infrastructure folder
 
 ```bash
+cd .\infrastructure\
 terraform init
 ```
 
